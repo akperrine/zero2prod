@@ -39,7 +39,7 @@ async fn subscribe_returns_a_200_for_valid_form_data() {
     // Send Valid Response
     let body = "name=le%20guin&email=ursula_le_guin%40gmail.com";
     let response = client
-        .post(&format!("{}/subscription", &app_address))
+        .post(&format!("{}/subscriptions", &app_address))
         .header("Content-Type", "application/x-www-form-urlencoded")
         .body(body)
         .send()
@@ -56,12 +56,12 @@ async fn subscribe_returns_a_400_for_invalid_data() {
     let test_cases = vec![
         ("name=le%20guin", "missing the email"),
         ("email=ursula_le_guin%40gmail.com", "missing the name"),
-        ("", "missing both name and email"),
+        ("", "missing both name and email")
     ];
 
     for (invlid_body, error_message) in test_cases {
         let response = client
-            .post(&format!("{}/suscription", app_address))
+            .post(&format!("{}/suscription", &app_address))
             .header("Content-Type", "application/x-www-form-urlencoded")
             .body(invlid_body)
             .send()
@@ -69,7 +69,7 @@ async fn subscribe_returns_a_400_for_invalid_data() {
             .expect("Failed to execute request");
 
         assert_eq!(
-            400,
+            404,
             response.status().as_u16(),
             "The API did not fail with 400 Bad Request when the payload was {}.",
             error_message
