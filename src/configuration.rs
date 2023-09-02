@@ -13,3 +13,12 @@ pub struct DatabaseSettings {
     pub database_name: String,
 }
 
+pub fn get_configuration() -> Result<Settings, config::ConfigError> {
+
+    // initiate config reader
+    let settings = config::Config::builder()
+    // add config settings from yml file
+    .add_source(config::File::new("configuration.yml", config::FileFormat::Yaml)).build()?;
+
+    settings.try_deserialize::<Settings>()
+}
