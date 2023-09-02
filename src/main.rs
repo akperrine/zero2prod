@@ -1,4 +1,3 @@
-use sqlx::{Connection, PgConnection};
 use sqlx::PgPool;
 use std::net::TcpListener;
 use zero2prod::configuration::get_configuration;
