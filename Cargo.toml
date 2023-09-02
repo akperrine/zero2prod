@@ -19,7 +19,7 @@ serde = {version = "1", features = ["derive"]}
 config = "0.13"
 
 [dependencies.sqlx]
-version = "0.6"
+version = "0.6.2"
 default-features = false
 features = [
     "runtime-actix-rustls", 
